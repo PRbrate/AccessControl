@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccessControl.Core.Extensios.Utils
+namespace AccessControl.Core
 {
     public static class DateExtensions
     {

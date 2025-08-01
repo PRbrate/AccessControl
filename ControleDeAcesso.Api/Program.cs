@@ -1,3 +1,4 @@
+using AccessControl.Api.ApiConfig;
 using AccessControl.ApiConfig;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.AddDbContextConfig();
+builder.AddDbContextConfig()
+    .AddIdentityConfig();
+
+
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 
@@ -19,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 

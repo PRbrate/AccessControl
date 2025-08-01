@@ -1,4 +1,4 @@
-﻿using AccessControl.Core.Entities;
+﻿using AccessControl.Core;
 using AccessControl.Domain.Entites;
 using AccessControl.Domain.Entites.Enums;
 using Microsoft.EntityFrameworkCore;

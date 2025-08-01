@@ -3,6 +3,7 @@ using System;
 using AccessControl.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AccessControl.Data.Migrations
 {
     [DbContext(typeof(AccessControlContext))]
-    partial class AccessControlContextModelSnapshot : ModelSnapshot
+    [Migration("20250801200135_generateAutoIncrementeContaId")]
+    partial class generateAutoIncrementeContaId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

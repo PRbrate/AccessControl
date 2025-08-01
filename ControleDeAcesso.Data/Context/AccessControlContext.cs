@@ -1,4 +1,4 @@
-﻿using AccessControl.Core.Extensios.Utils;
+﻿using AccessControl.Core;
 using AccessControl.Domain.Entites;
 using ControleDeAcesso.Domain.Entites;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

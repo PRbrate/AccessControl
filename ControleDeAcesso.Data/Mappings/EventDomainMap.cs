@@ -1,4 +1,4 @@
-﻿using AccessControl.Core.Entities;
+﻿using AccessControl.Core;
 using ControleDeAcesso.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

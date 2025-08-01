@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AccessControl.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace AccessControl.Core.Entities
 {

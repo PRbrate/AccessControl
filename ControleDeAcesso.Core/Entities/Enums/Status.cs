@@ -1,4 +1,4 @@
-﻿namespace AccessControl.Core.Entities
+﻿namespace AccessControl.Core
 {
     public enum Status
     {

@@ -1,12 +1,14 @@
-﻿using AccessControl.Core.Entities;
+﻿using AccessControl.Core;
 using AccessControl.Domain.Entites.Enums;
 using ControleDeAcesso.Domain.Entites;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AccessControl.Domain.Entites
 {
     public class User : IdentityUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ContaId { get; set; }
         public string Name { get; set; }
         public string Adress { get; set; }
