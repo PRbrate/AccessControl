@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using AccessControl.Core.Entities;
 
 namespace ControleDeAcesso.Domain.Entites
 {
-    public class EventDomain
+    public class EventDomain : Entity
     {
         public string Name { get; set; }
         public DateTime EventDate { get; set; }
         public int QuantParticipants { get; set; }
-        public IEnumerable<Participants> participants { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public string Image { get; set; }
+        public string Description { get; set; } 
+        public string Adress { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+        public string UserId { get; set; }  
+
+
     }
 }

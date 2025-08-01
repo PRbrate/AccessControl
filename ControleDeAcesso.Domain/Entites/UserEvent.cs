@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AccessControl.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace ControleDeAcesso.Domain.Entites
 {
-    public class UserEvent
+    public class UserEvent : Entity
     {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public IEnumerable<Participants> participants { get; set; }
+
+
     }
 }
