@@ -7,6 +7,7 @@ namespace AccessControl.Domain.Entites
 {
     public class User : IdentityUser
     {
+        public long ContaId { get; set; }
         public string Name { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }
