@@ -1,5 +1,7 @@
 ﻿using AccessControl.Core;
 using AccessControl.Data.Context;
+using AccessControl.Data.Repositories;
+using AccessControl.Data.Repositories.Interfaces;
 
 namespace AccessControl.Api.ApiConfig
 {
@@ -17,6 +19,7 @@ namespace AccessControl.Api.ApiConfig
 
             #region Repositories
             services.AddScoped<AccessControlContext>();
+            services.AddScoped<IEventDomainRepository, EventDomainRepository>();
 
             #endregion
         }
