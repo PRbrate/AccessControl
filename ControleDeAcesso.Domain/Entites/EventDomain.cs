@@ -28,6 +28,7 @@ namespace ControleDeAcesso.Domain.Entites
         public string PostalCode { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+        public IEnumerable<UserEvent> UsersEvent { get; set; }
 
 
     }

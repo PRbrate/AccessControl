@@ -28,7 +28,10 @@ namespace ControleDeAcesso.Domain.Entites
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public IEnumerable<EventDomain> Events { get; set; }
         public IEnumerable<Participants> Participants { get; set; }
+
 
 
     }

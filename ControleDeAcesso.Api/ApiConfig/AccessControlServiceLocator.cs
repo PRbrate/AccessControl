@@ -12,7 +12,6 @@ namespace AccessControl.Api.ApiConfig
             services.AddScoped<IUser, AspNetUser>();
             services.AddScoped<INotifier, Notifier>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddScoped<INotificacaoService, NotificacaoService>();
 
             #endregion
 

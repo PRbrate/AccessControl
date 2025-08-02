@@ -22,8 +22,14 @@ namespace AccessControl.Data.Mappings
                 .IsRequired(true)
                 .HasMaxLength(50);
 
+            builder.HasMany(u => u.Events)
+                .WithMany(e => e.UsersEvent)
+                .UsingEntity(t => t.ToTable("UserEvents"));
+
             builder.HasIndex(e => e.ContaId);
             builder.HasKey(e => e.Id);
+
+
 
 
             builder.Property(e => e.Status)

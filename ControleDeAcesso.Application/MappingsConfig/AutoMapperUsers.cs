@@ -16,7 +16,18 @@ namespace AccessControl.Application.MappingsConfig
             PostalCode = user.PostalCode,
             Email = user.Email,
             PasswordHash = user.Password,
+            Photo = user.Photo
         };
+
+        public static UserDto Map(this User user) => new(
+            user.Id,
+            user.ContaId,
+            user.Name,
+            user.UserName,
+            user.UserType.ToString(),
+            user.Photo,
+            user.Email
+        );
 
     }
 }

@@ -10,11 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.AddDbContextConfig()
-    .AddIdentityConfig();
+builder
+    .AddApiConfig()
+    .AddDbContextConfig()
+    .AddIdentityConfig()
+    .AddSwaggerConfig()
+    .AddCorsConfig();
 
-
-builder.Services.RegisterServices();
 
 var app = builder.Build();
 

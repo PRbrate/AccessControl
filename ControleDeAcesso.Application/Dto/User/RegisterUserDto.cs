@@ -21,11 +21,13 @@ namespace AccessControl.Application.Dto
         public string Name { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "O Nome do Usuário deve ter entre {2} e {1} caracteres")]
         public string UserName { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+
+        public string Photo { get; set; }
         public string PostalCode { get; set; }
     }
 }
