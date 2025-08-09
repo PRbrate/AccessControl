@@ -27,6 +27,7 @@ namespace AccessControl.Core.Base
 
         public virtual async Task<bool> Create(TEntity entity)
         {
+            entity.CreatedAt = DateTime.UtcNow;
             _dbSet.Add(entity);
             return await SaveChanges() > 0;
         }

@@ -12,6 +12,7 @@ namespace AccessControl.Application.MappingsConfig
             Description = eventDomain.Description,
             EventDate = eventDomain.EventDate,
             QuantParticipants = eventDomain.QuantParticipants,
+            Available = eventDomain.Available,
             Image = eventDomain.Image,
             Adress = eventDomain.Adress,
             City = eventDomain.City,
@@ -19,5 +20,20 @@ namespace AccessControl.Application.MappingsConfig
             PostalCode = eventDomain.PostalCode
         };
 
+        public static EventDomainDto Map(this EventDomain eventDomain) => new()
+        {
+            Name = eventDomain.Name,
+            Description = eventDomain.Description,
+            EventDate = eventDomain.EventDate,
+            QuantParticipants = eventDomain.QuantParticipants,
+            Available = eventDomain.Available,
+            Image = eventDomain.Image,
+            Adress = eventDomain.Adress,
+            City = eventDomain.City,
+            State = eventDomain.State,
+            PostalCode = eventDomain.PostalCode
+        };
+
+        public static List<EventDomainDto> Map(this IQueryable<EventDomain> eventDomains) => eventDomains.Select(eventDomain => eventDomain.Map()).ToList();
     }
 }

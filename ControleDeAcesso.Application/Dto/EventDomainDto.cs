@@ -5,6 +5,7 @@
         public string Name { get; set; }
         public DateTime EventDate { get; set; }
         public int QuantParticipants { get; set; }
+        public bool Available { get; set; } = true;
         public string Image { get; set; }
         public string Description { get; set; }
         public string Adress { get; set; }

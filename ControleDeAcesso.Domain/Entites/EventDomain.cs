@@ -20,6 +20,7 @@ namespace ControleDeAcesso.Domain.Entites
         public string Name { get; set; }
         public DateTime EventDate { get; set; }
         public int QuantParticipants { get; set; }
+        public int MaxPeaples { get; set; }
         public string Image { get; set; }
         public string Description { get; set; } 
         public string Adress { get; set; }
@@ -27,6 +28,7 @@ namespace ControleDeAcesso.Domain.Entites
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string UserId { get; set; }
+        public bool Available { get; set; } = true;
         public User User { get; set; }
         public IEnumerable<UserEvent> UsersEvent { get; set; }
 

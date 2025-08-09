@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ControleDeAcesso.Data\AccessControl.Data.csproj" />
     <ProjectReference Include="..\ControleDeAcesso.Domain\AccessControl.Domain.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,6 @@
-﻿using AccessControl.Core;
+﻿using AccessControl.Application.Services;
+using AccessControl.Application.Services.Interfaces;
+using AccessControl.Core;
 using AccessControl.Data.Context;
 using AccessControl.Data.Repositories;
 using AccessControl.Data.Repositories.Interfaces;
@@ -14,6 +16,8 @@ namespace AccessControl.Api.ApiConfig
             services.AddScoped<IUser, AspNetUser>();
             services.AddScoped<INotifier, Notifier>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<IEventDomainService, EventDomainService>();
 
             #endregion
 
