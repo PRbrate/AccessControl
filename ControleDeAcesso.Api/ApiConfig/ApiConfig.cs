@@ -1,4 +1,5 @@
 ﻿using AccessControl.Core;
+using AccessControl.Domain.Entites;
 
 namespace AccessControl.Api.ApiConfig
 {
@@ -12,6 +13,8 @@ namespace AccessControl.Api.ApiConfig
                 .AddJsonFile($"appsettings.json.{builder.Environment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
+            var cloudflareConfig = builder.Configuration.GetSection("CloudFlareSettings");
+            builder.Services.Configure<CloudFlareSettings>(cloudflareConfig);
 
             builder.Services.AddControllers()
                 .ConfigureApiBehaviorOptions(options =>

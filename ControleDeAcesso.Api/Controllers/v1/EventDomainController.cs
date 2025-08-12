@@ -1,7 +1,6 @@
 ﻿using AccessControl.Application.Dto;
 using AccessControl.Application.Services.Interfaces;
 using AccessControl.Core;
-using AccessControl.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -8,7 +8,7 @@ namespace AccessControl.ApiConfig
     {
         public static WebApplicationBuilder AddDbContextConfig(this WebApplicationBuilder builder)
         {
-            var connectionStr = builder.Configuration.GetConnectionString("CONNECTION");
+            var connectionStr = Environment.GetEnvironmentVariable("CONNECTION");
 
             if (string.IsNullOrEmpty(connectionStr))
             {

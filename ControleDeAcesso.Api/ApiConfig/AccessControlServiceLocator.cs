@@ -16,6 +16,8 @@ namespace AccessControl.Api.ApiConfig
             services.AddScoped<IUser, AspNetUser>();
             services.AddScoped<INotifier, Notifier>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICloudflareService, CloudflareService>();
+
 
             services.AddScoped<IEventDomainService, EventDomainService>();
 

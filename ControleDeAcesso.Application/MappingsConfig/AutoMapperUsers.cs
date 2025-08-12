@@ -1,5 +1,6 @@
 ﻿using AccessControl.Application.Dto;
 using AccessControl.Domain.Entites;
+using AccessControl.Domain.Entites.Enums;
 
 namespace AccessControl.Application.MappingsConfig
 {
@@ -11,6 +12,7 @@ namespace AccessControl.Application.MappingsConfig
             Name = user.Name,
             Adress = user.Adress,
             UserName = user.UserName,
+            UserType = UserType.Costumer,
             City = user.City,
             State = user.State,
             PostalCode = user.PostalCode,
