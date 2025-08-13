@@ -24,7 +24,7 @@ Sistema de controle de acesso desenvolvido em **.NET** utilizando arquitetura li
 4. **Rodar migrações**
   `dotnet ef database update --project ControleDeAcesso.Data`
 
-5.**Executar a API**
+5. **Executar a API**
   `dotnet run --project ControleDeAcesso.Api`
 
 Estrutura
