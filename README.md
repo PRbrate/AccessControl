@@ -29,8 +29,8 @@ Sistema de controle de acesso desenvolvido em **.NET** utilizando arquitetura li
 
 Estrutura
 
-  ControleDeAcesso.Api → API e endpoints
-  ControleDeAcesso.Application → Casos de uso
-  ControleDeAcesso.Domain → Regras de negócio
-  ControleDeAcesso.Data → Acesso a dados
-  ControleDeAcesso.Core → Contratos e utilitários
+  - ControleDeAcesso.Api → API e endpoints
+  - ControleDeAcesso.Application → Casos de uso
+  - ControleDeAcesso.Domain → Regras de negócio
+  - ControleDeAcesso.Data → Acesso a dados
+  - ControleDeAcesso.Core → Contratos e utilitários
