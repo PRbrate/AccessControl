@@ -30,17 +30,50 @@ namespace AccessControl.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-
-            var sucess = await _eventDomainService.CreateEventDomain(eventDomainDto);
-
-            if (!sucess)
+            try
             {
-                NotifyError("Erro ao criar evento.");
+
+                var sucess = await _eventDomainService.CreateEventDomain(eventDomainDto);
+
+                if (sucess.Errors != null)
+                {
+                    NotifyError(sucess.Errors);
+                    return CustomResponse();
+                }
+
+                return CustomResponse(sucess);
+            }
+            catch (Exception ex)
+            {
+                NotifyError("Erro ao criar evento: " + ex.Message);
                 return CustomResponse();
             }
+        }
 
-            return CustomResponse(eventDomainDto);
+        [HttpPatch("{id}/uploadphoto")]
+        public async Task<IActionResult> UploadPhoto(Guid id, string photoName)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
+            try
+            {
+
+                var sucess = await _eventDomainService.UpdatePhotoEvent(id, photoName);
+
+                if (!sucess)
+                {
+                    NotifyError("não foi possivel atualizar a foto");
+                    return CustomResponse();
+                }
+
+                return CustomResponse(sucess);
+            }
+            catch (Exception ex)
+            {
+                NotifyError("Erro ao atualizar foto: " + ex.Message);
+                return CustomResponse();
+            }
         }
     }
+
 }

@@ -2,6 +2,7 @@
 {
     public class EventDomainDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public DateTime EventDate { get; set; }
         public int QuantParticipants { get; set; }

@@ -49,12 +49,12 @@ namespace AccessControl.Api.Controllers.v1
             }
         }
         [HttpPut("urlUploadEvent")]
-        public async Task<ActionResult> UploadEvent(string eventName)
+        public async Task<ActionResult> UploadEvent(string idEvent)
         {
             try
             {
 
-                var url = await _cloudflareService.UploadFileEvent(eventName);
+                var url = await _cloudflareService.UploadFileEvent(idEvent);
 
                 return CustomResponse(url);
             }

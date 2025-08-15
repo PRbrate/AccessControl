@@ -6,6 +6,7 @@ namespace AccessControl.Data.Repositories.Interfaces
 {
     public interface IEventDomainRepository : IRepositoryBase<EventDomain>  
     {
+        Task<EventDomain> CreateEvent(EventDomain eventDomain);
         Task<List<EventDomain>> GetList();
         Task<EventDomain> GetUserFromId(string id);
         Task<EventDomain> GetFindByDater(DateTime date);

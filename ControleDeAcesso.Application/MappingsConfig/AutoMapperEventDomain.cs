@@ -23,6 +23,7 @@ namespace AccessControl.Application.MappingsConfig
 
         public static EventDomainDto Map(this EventDomain eventDomain) => new()
         {
+            Id = eventDomain.Id,
             Name = eventDomain.Name,
             Description = eventDomain.Description,
             EventDate = eventDomain.EventDate,

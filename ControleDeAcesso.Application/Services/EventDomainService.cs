@@ -2,8 +2,10 @@
 using AccessControl.Application.MappingsConfig;
 using AccessControl.Application.Services.Interfaces;
 using AccessControl.Core;
+using AccessControl.Core.Entities;
 using AccessControl.Data.Repositories.Interfaces;
 using AccessControl.Domain.Validations;
+using ControleDeAcesso.Domain.Entites;
 
 namespace AccessControl.Application.Services
 {
@@ -13,7 +15,7 @@ namespace AccessControl.Application.Services
         private readonly INotifier _notifier;
         private readonly IUser _appUser;
 
-        public EventDomainService(INotifier notifier, IUser appUser, IEventDomainRepository eventDomainRepository) 
+        public EventDomainService(INotifier notifier, IUser appUser, IEventDomainRepository eventDomainRepository)
             : base(notifier)
         {
             _eventDomainRepository = eventDomainRepository;
@@ -22,18 +24,30 @@ namespace AccessControl.Application.Services
         }
 
 
-        public async Task<bool> CreateEventDomain(EventDomainDto eventDomainDto)
+        public async Task<Response<EventDomainDto>> CreateEventDomain(EventDomainDto eventDomainDto)
         {
             var eventDomain = eventDomainDto.Map();
             eventDomain.UserId = _appUser.GetUserId();
             eventDomain.ContaId = _appUser.GetAccountId();
+            var response = new Response<EventDomainDto>();
 
-            if(!ExecutarValidacao(new EventDomainValidation(), eventDomain))
+            try
             {
-                return await Task.FromResult(false);
-            }
+                if (!ExecutarValidacao(new EventDomainValidation(), eventDomain))
+                {
+                    response.Success = false;
+                    return response;
+                }
 
-            return await _eventDomainRepository.Create(eventDomain);
+                response.Data = AutoMapperEventDomain.Map(await _eventDomainRepository.CreateEvent(eventDomain));
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Success = false;
+                return response;
+            }
         }
 
         public async Task<bool> DeleteService(Guid eventDomain)
@@ -48,7 +62,7 @@ namespace AccessControl.Application.Services
 
             await _eventDomainRepository.Delete(eventDomain);
 
-           return await Task.FromResult(true);
+            return await Task.FromResult(true);
 
         }
 
@@ -68,6 +82,20 @@ namespace AccessControl.Application.Services
         public Task<bool> UpdateEvent(EventDomainDto eventDomainDto)
         {
             throw new NotImplementedException();
+        }
+        public async Task<bool> UpdatePhotoEvent(Guid eventId, string photoName)
+        {
+            var eventDomainEntity = await _eventDomainRepository.GetByIdAsNoTracking(eventId);
+
+            if (eventDomainEntity == null)
+            {
+                Notificar("Evento não encontrado.");
+                return await Task.FromResult(false);
+            }
+            eventDomainEntity.Image = photoName;
+
+            return await _eventDomainRepository.Update(eventDomainEntity);
+
         }
     }
 }

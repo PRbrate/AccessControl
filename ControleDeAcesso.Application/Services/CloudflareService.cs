@@ -104,11 +104,12 @@ namespace AccessControl.Application.Services
             }
         }
 
-        public async Task<Response<string>> UploadFileEvent(string eventName)
+        public async Task<Response<List<string>>> UploadFileEvent(string id)
         {
-            var response = new Response<string>();
+            var response = new Response<List<string>>();
+            var data = new List<string>();
             var userId = _user.GetUserId();
-            var keyname = $"{userId}-eventWithName-{eventName}";
+            var keyname = $"{userId}-eventWithId-{id}";
             try
             {
                 AWSConfigsS3.UseSignatureVersion4 = true;
@@ -121,18 +122,23 @@ namespace AccessControl.Application.Services
                     ContentType = "image/jpeg",
                 };
 
-                response.Data = _s3client.GetPreSignedURL(request);
+                data.Add(_s3client.GetPreSignedURL(request));
+                data.Add(keyname);
+
+                response.Data = data;
 
                 return response;
             }
             catch (AmazonS3Exception e)
             {
+                throw new AmazonS3Exception(e);
                 response.Success = false;
                 response.Errors = e.Message;
                 return response;
             }
             catch (Exception e)
             {
+                throw new AmazonS3Exception(e);
                 response.Success = false;
                 response.Errors = e.Message;
                 return response;
