@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AccessControl.Data.Migrations
 {
     [DbContext(typeof(AccessControlContext))]
-    [Migration("20250802141714_relasishipeventByUserEvent")]
-    partial class relasishipeventByUserEvent
+    [Migration("20250815002926_newInitial")]
+    partial class newInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,8 @@ namespace AccessControl.Data.Migrations
                     b.Property<string>("Id")
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("Id");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -185,7 +186,7 @@ namespace AccessControl.Data.Migrations
 
                     b.HasIndex("ContaId");
 
-                    b.ToTable("Users");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("ControleDeAcesso.Domain.Entites.EventDomain", b =>
@@ -199,6 +200,9 @@ namespace AccessControl.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -226,6 +230,9 @@ namespace AccessControl.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<int>("MaxPeaples")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()

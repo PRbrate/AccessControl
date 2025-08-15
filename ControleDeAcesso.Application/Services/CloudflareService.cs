@@ -103,6 +103,41 @@ namespace AccessControl.Application.Services
                 return response;
             }
         }
+
+        public async Task<Response<string>> UploadFileEvent(string eventName)
+        {
+            var response = new Response<string>();
+            var userId = _user.GetUserId();
+            var keyname = $"{userId}-eventWithName-{eventName}";
+            try
+            {
+                AWSConfigsS3.UseSignatureVersion4 = true;
+                var request = new GetPreSignedUrlRequest
+                {
+                    BucketName = _cloudflareSettings.CLOUDFLARE_BUCKET_NAME,
+                    Key = keyname,
+                    Verb = HttpVerb.PUT,
+                    Expires = DateTime.UtcNow.AddMinutes(2),
+                    ContentType = "image/jpeg",
+                };
+
+                response.Data = _s3client.GetPreSignedURL(request);
+
+                return response;
+            }
+            catch (AmazonS3Exception e)
+            {
+                response.Success = false;
+                response.Errors = e.Message;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Errors = e.Message;
+                return response;
+            }
+        }
     }
 
 }

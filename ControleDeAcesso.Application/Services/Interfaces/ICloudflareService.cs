@@ -6,5 +6,6 @@ namespace AccessControl.Application.Services.Interfaces
     {
         Task<Response<string>> GetCloudflareTokenAsync();
         Task<Response<string>> UploadFile();
+        Task<Response<string>> UploadFileEvent(string eventName);
     }
 }

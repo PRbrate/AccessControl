@@ -8,7 +8,7 @@ namespace AccessControl.ApiConfig
     {
         public static WebApplicationBuilder AddDbContextConfig(this WebApplicationBuilder builder)
         {
-            var connectionStr = Environment.GetEnvironmentVariable("CONNECTION");
+            var connectionStr = Environment.GetEnvironmentVariable("CONNECTIONAWS");
 
             if (string.IsNullOrEmpty(connectionStr))
             {

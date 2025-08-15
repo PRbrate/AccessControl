@@ -12,6 +12,7 @@ namespace AccessControl.Application.MappingsConfig
             Description = eventDomain.Description,
             EventDate = eventDomain.EventDate,
             QuantParticipants = eventDomain.QuantParticipants,
+            MaxPeaples = eventDomain.QuantParticipants,
             Available = eventDomain.Available,
             Image = eventDomain.Image,
             Adress = eventDomain.Adress,

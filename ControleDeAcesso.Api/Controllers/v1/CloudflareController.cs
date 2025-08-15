@@ -35,18 +35,35 @@ namespace AccessControl.Api.Controllers.v1
         [HttpPut("urlUpload")]
         public async Task<ActionResult> Upload()
         {
-            try { 
+            try
+            {
 
-            var url = await _cloudflareService.UploadFile();
+                var url = await _cloudflareService.UploadFile();
 
-            return CustomResponse(url);
+                return CustomResponse(url);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 NotifyError(err.Message);
                 return CustomResponse();
             }
         }
+        [HttpPut("urlUploadEvent")]
+        public async Task<ActionResult> UploadEvent(string eventName)
+        {
+            try
+            {
 
+                var url = await _cloudflareService.UploadFileEvent(eventName);
+
+                return CustomResponse(url);
+            }
+            catch (Exception err)
+            {
+                NotifyError(err.Message);
+                return CustomResponse();
+            }
+
+        }
     }
 }

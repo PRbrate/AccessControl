@@ -1,4 +1,5 @@
 ﻿using AccessControl.Core;
+using AccessControl.Core.Entities;
 using AccessControl.Domain.Entites;
 using AccessControl.Domain.Entites.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,9 @@ namespace AccessControl.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("AspNetUsers");
+            builder.Property(u => u.Id).HasColumnName("Id");
+
             builder.HasIndex(c => c.ContaId);
 
             builder.HasKey(u => u.Id);

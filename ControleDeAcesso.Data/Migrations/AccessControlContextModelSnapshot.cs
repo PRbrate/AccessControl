@@ -64,7 +64,8 @@ namespace AccessControl.Data.Migrations
                     b.Property<string>("Id")
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("Id");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -182,7 +183,7 @@ namespace AccessControl.Data.Migrations
 
                     b.HasIndex("ContaId");
 
-                    b.ToTable("Users");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("ControleDeAcesso.Domain.Entites.EventDomain", b =>
