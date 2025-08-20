@@ -1,6 +1,7 @@
 ﻿using AccessControl.Application.Dto;
 using AccessControl.Application.Services.Interfaces;
 using AccessControl.Core;
+using AccessControl.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +22,31 @@ namespace AccessControl.Api.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var events = await _eventDomainService.GetAllEventDomainAsync();
-            return Ok(events);
+            try
+            {
+                var events = await _eventDomainService.GetAllEventDomainAsync();
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                NotifyError("Erro ao buscar os eventos: " + ex.Message);
+                return CustomResponse();
+            }
+        }
+
+        [HttpGet("NextEvent")]
+        public async Task<IActionResult> GetNextEvent()
+        {
+            try
+            {
+                var events = await _eventDomainService.GetNextEvent();
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                NotifyError("Erro ao buscar os eventos: " + ex.Message);
+                return CustomResponse();
+            }
         }
 
         [HttpPost]

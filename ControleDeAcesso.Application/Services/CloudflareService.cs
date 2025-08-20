@@ -4,6 +4,7 @@ using AccessControl.Core.Entities;
 using AccessControl.Domain.Entites;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Options;
@@ -38,21 +39,21 @@ namespace AccessControl.Application.Services
             _s3client = new AmazonS3Client(_cloudflareSettings.CLOUDFLARE_ACCESS_KEY_ID, _cloudflareSettings.CLOUDFLARE_SECRET_KEY, config);
         }
 
-        public async Task<Response<string>> GetCloudflareTokenAsync()
+        public async Task<Response<string>> getProfileImage()
         {
             var response = new Response<string>();
             var userId = _user.GetUserId();
             var keyname = $"{userId}profilephoto";
             try
             {
-                var teste = new GetPreSignedUrlRequest
+                var request = new GetPreSignedUrlRequest
                 {
                     BucketName = _cloudflareSettings.CLOUDFLARE_BUCKET_NAME,
                     Key = keyname,
                     Verb = HttpVerb.GET,
                     Expires = DateTime.UtcNow.AddMinutes(5),
                 };
-                response.Data = _s3client.GetPreSignedURL(teste);
+                response.Data = _s3client.GetPreSignedURL(request);
                 return response;
             }
             catch (AmazonS3Exception e)
@@ -69,6 +70,47 @@ namespace AccessControl.Application.Services
             }
         }
 
+        public async Task<List<string>> getListImageEvent()
+        {
+            var userId = _user.GetUserId();
+            var prefix = $"{userId}-eventWithId-";
+            try
+            {
+                var request = new ListObjectsV2Request
+                {
+                    BucketName = _cloudflareSettings.CLOUDFLARE_BUCKET_NAME,
+                    Prefix = prefix,
+
+                };
+                var response = await _s3client.ListObjectsV2Async(request);
+
+                var urls = new List<string>();
+                foreach (var obj in response.S3Objects)
+                {
+                    var signedUrlRequest = new GetPreSignedUrlRequest
+                    {
+                        BucketName = _cloudflareSettings.CLOUDFLARE_BUCKET_NAME,
+                        Key = obj.Key,
+                        Expires = DateTime.UtcNow.AddMinutes(5),
+                        Verb = HttpVerb.GET
+                    };
+
+                    string url = _s3client.GetPreSignedURL(signedUrlRequest);
+                    urls.Add(url);
+                }
+                return urls;
+            }
+            catch (AmazonS3Exception e)
+            {
+                throw new AmazonS3Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
+
+            }
+        }
         public async Task<Response<string>> UploadFile()
         {
             var response = new Response<string>();
@@ -131,17 +173,37 @@ namespace AccessControl.Application.Services
             }
             catch (AmazonS3Exception e)
             {
-                throw new AmazonS3Exception(e);
-                response.Success = false;
-                response.Errors = e.Message;
-                return response;
+                throw new AmazonS3Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
             }
             catch (Exception e)
             {
-                throw new AmazonS3Exception(e);
-                response.Success = false;
-                response.Errors = e.Message;
-                return response;
+                throw new Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
+            }
+        }
+        public async Task<string> GetFileEvent(string eventId)
+        {
+            var userId = _user.GetUserId();
+            var keyname = $"{userId}-eventWithId-{eventId}";
+            try
+            {
+                var signedUrlRequest = new GetPreSignedUrlRequest
+                {
+                    BucketName = _cloudflareSettings.CLOUDFLARE_BUCKET_NAME,
+                    Key = keyname,
+                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    Verb = HttpVerb.GET,
+                };
+
+                return _s3client.GetPreSignedURL(signedUrlRequest);
+
+            }
+            catch (AmazonS3Exception e)
+            {
+                throw new AmazonS3Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao gerar URL pré-assinada: " + e.Message, e);
             }
         }
     }

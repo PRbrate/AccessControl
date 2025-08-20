@@ -25,10 +25,35 @@ namespace AccessControl.Api.Controllers.v1
         [HttpGet("urlget")]
         public async Task<ActionResult> get()
         {
+            try
+            {
+                var url = await _cloudflareService.getProfileImage();
 
-            var url = await _cloudflareService.GetCloudflareTokenAsync();
+                return CustomResponse(url);
+            }
+            catch (Exception err)
+            {
+                NotifyError(err.Message);
+                return CustomResponse();
+            }
+        }
 
-            return CustomResponse(url);
+
+        [HttpGet("urlListImage")]
+        public async Task<ActionResult> getListImageAsync()
+        {
+            try
+            {
+
+                var urls = await _cloudflareService.getListImageEvent();
+
+                return Ok(urls);
+            }
+            catch (Exception err)
+            {
+                NotifyError(err.Message);
+                return CustomResponse();
+            }
         }
 
 

@@ -11,5 +11,6 @@ namespace AccessControl.Application.Services.Interfaces
         Task<EventDomainDto> GetEventDomain(Guid id);
         Task<bool> UpdateEvent(EventDomainDto eventDomainDto);
         Task<bool> UpdatePhotoEvent(Guid eventId, string photoName);
+        Task<EventDomainDto> GetNextEvent();
     }
 }

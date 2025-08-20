@@ -3,6 +3,7 @@ using AccessControl.Core.Base;
 using AccessControl.Data.Context;
 using AccessControl.Data.Repositories.Interfaces;
 using ControleDeAcesso.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccessControl.Data.Repositories
 {
@@ -25,6 +26,11 @@ namespace AccessControl.Data.Repositories
             return eventDomain;
         }
 
+        public virtual async Task<EventDomain> GetByNextEvent()
+        {
+            var eventDomains = await _context.Event.Where(e => e.EventDate >= DateTime.UtcNow).OrderBy(e => e.EventDate).FirstOrDefaultAsync();
+            return eventDomains;
+        }
         public Task<EventDomain> GetFindByDater(DateTime date)
         {
             throw new NotImplementedException();

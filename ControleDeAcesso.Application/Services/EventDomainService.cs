@@ -14,13 +14,15 @@ namespace AccessControl.Application.Services
         private readonly IEventDomainRepository _eventDomainRepository;
         private readonly INotifier _notifier;
         private readonly IUser _appUser;
+        private readonly ICloudflareService _cloudflareService;
 
-        public EventDomainService(INotifier notifier, IUser appUser, IEventDomainRepository eventDomainRepository)
+        public EventDomainService(INotifier notifier, IUser appUser, IEventDomainRepository eventDomainRepository, ICloudflareService cloudflareService)
             : base(notifier)
         {
             _eventDomainRepository = eventDomainRepository;
             _notifier = notifier;
             _appUser = appUser;
+            _cloudflareService = cloudflareService;
         }
 
 
@@ -68,13 +70,29 @@ namespace AccessControl.Application.Services
 
         public async Task<List<EventDomainDto>> GetAllEventDomainAsync()
         {
-            var getEventDomain = await _eventDomainRepository.GetListAsync();
-            return getEventDomain.Map();
+
+            var eventsDomain = await _eventDomainRepository.GetListAsync();
+
+            foreach (var item in eventsDomain)
+            {
+                item.Image = await _cloudflareService.GetFileEvent(item.Id.ToString());
+            }
+            return eventsDomain.Map();
+        }
+
+        public async Task<EventDomainDto> GetNextEvent()
+        {
+
+            var eventsDomain = await _eventDomainRepository.GetByNextEvent();
+
+            eventsDomain.Image = await _cloudflareService.GetFileEvent(eventsDomain.Id.ToString());
+            return eventsDomain.Map();
         }
 
         public async Task<EventDomainDto> GetEventDomain(Guid id)
         {
             var eventDomain = await _eventDomainRepository.GetById(id);
+
 
             return eventDomain.Map();
         }
